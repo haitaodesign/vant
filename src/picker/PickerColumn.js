@@ -172,6 +172,34 @@ export default createComponent({
       }, 0);
     },
 
+    // 兼容pc端滚轮滑动选中
+    onMousewheel(e) {
+      const _this = this;
+      this.moving = true;
+      if (this.currentIndex !== this.count - 1) {
+          if (e.wheelDeltaY < -2) {
+            this.offset += e.wheelDeltaY / 10;
+          }
+        }
+
+        if (this.currentIndex !== 0) {
+          if (e.wheelDeltaY > 2) {
+            this.offset += e.wheelDeltaY / 10;
+          }
+        }
+
+        this.touchStartTime = Date.now();
+        setTimeout(function () {
+          if (Date.now() - _this.touchStartTime >= 180) {
+            _this.moving = false;
+
+            const index = _this.getIndexByOffset(_this.offset);
+
+            _this.setIndex(index, true);
+          }
+        }, 180);
+    },
+
     onTransitionEnd() {
       this.stopMomentum();
     },
@@ -326,6 +354,7 @@ export default createComponent({
           style={wrapperStyle}
           class={bem('wrapper')}
           onTransitionend={this.onTransitionEnd}
+          onMousewheel={this.onMousewheel}
         >
           {this.genOptions()}
         </ul>
