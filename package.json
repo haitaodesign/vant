@@ -1,5 +1,5 @@
 {
-  "name": "vant",
+  "name": "@dustess/vant",
   "version": "2.12.16",
   "description": "Mobile UI Components built on Vue",
   "main": "lib/index.js",
@@ -13,7 +13,7 @@
     "vetur"
   ],
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://npm.dustess.com/"
   },
   "scripts": {
     "bootstrap": "yarn || npm i",
